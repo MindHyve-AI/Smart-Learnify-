@@ -1,0 +1,83 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  nodeVersion: '18.x'
+
+stages:
+  - stage: Build
+    displayName: 'Build Stage'
+    jobs:
+      - job: Build
+        displayName: 'Build Next.js App'
+        steps:
+          - task: NodeTool@0
+            displayName: 'Use Node.js $(nodeVersion)'
+            inputs:
+              versionSpec: '$(nodeVersion)'
+
+          - script: |
+              npm install
+            displayName: 'Install dependencies'
+
+          - script: |
+              npm run lint
+            displayName: 'Run linting'
+            continueOnError: true
+
+          - script: |
+              npm run build
+            displayName: 'Build application'
+
+          - task: ArchiveFiles@2
+            displayName: 'Archive build artifacts'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/.next'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/next-app.zip'
+              replaceExistingArchive: true
+
+          - task: ArchiveFiles@2
+            displayName: 'Archive public files'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/public'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/public.zip'
+              replaceExistingArchive: true
+
+          - task: ArchiveFiles@2
+            displayName: 'Archive package.json'
+            inputs:
+              rootFolderOrFile: '$(System.DefaultWorkingDirectory)/package.json'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/package.json.zip'
+              replaceExistingArchive: true
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish artifacts'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  - stage: Deploy
+    displayName: 'Deploy Stage'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: Deploy
+        displayName: 'Deploy to Azure Static Web Apps'
+        steps:
+          - task: AzureStaticWebApp@0
+            displayName: 'Deploy to Azure Static Web App'
+            inputs:
+              app_location: '/'
+              api_location: ''
+              output_location: '.next'
+              azure_static_web_apps_api_token: $(AZURE_STATIC_WEB_APPS_API_TOKEN) 
