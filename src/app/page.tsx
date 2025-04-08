@@ -1,103 +1,101 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import HeroSvg from "@/components/HeroSvg";
+import FeaturesGrid from "@/components/landing/FeaturesGrid";
+import TestimonialsCarousel from "@/components/landing/TestimonialsCarousel";
+import FaqAccordion from "@/components/landing/FaqAccordion";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="flex flex-col items-center justify-center">
+      {/* Hero Section */}
+      <section className="container flex flex-col items-center justify-center gap-4 py-24 md:py-32">
+        <div className="flex max-w-5xl flex-col items-center text-center">
+          <h1 className="text-4xl font-bold tracking-tighter md:text-6xl lg:text-7xl">
+            Transform Learning with{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent">
+              AI-Powered Personalization
+            </span>
+          </h1>
+          <p className="mt-6 max-w-[42rem] text-muted-foreground md:text-xl">
+            Smart Learnify AI adapts to your learning style, providing personalized education 
+            experiences that evolve with you. Master concepts faster with intelligent feedback and adaptive content.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Button asChild size="lg">
+              <Link href="/sign-up">Get Started</Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link href="/features">Learn More</Link>
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        {/* Hero SVG/Image */}
+        <div className="mt-16 flex w-full max-w-4xl items-center justify-center">
+          <HeroSvg />
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="w-full bg-muted/40 py-20">
+        <div className="container flex flex-col items-center">
+          <h2 className="text-center text-3xl font-bold tracking-tighter md:text-4xl">
+            Powerful Features for Smarter Learning
+          </h2>
+          <p className="mt-4 max-w-[42rem] text-center text-muted-foreground">
+            Discover how Smart Learnify AI transforms education with cutting-edge technology
+            designed to enhance your learning journey.
+          </p>
+          <FeaturesGrid />
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="w-full py-20">
+        <div className="container flex flex-col items-center">
+          <h2 className="text-center text-3xl font-bold tracking-tighter md:text-4xl">
+            What Our Students Say
+          </h2>
+          <p className="mt-4 max-w-[42rem] text-center text-muted-foreground">
+            Hear from students who have transformed their learning experience with Smart Learnify AI.
+          </p>
+          <TestimonialsCarousel />
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="w-full bg-muted/40 py-20">
+        <div className="container flex flex-col items-center">
+          <h2 className="text-center text-3xl font-bold tracking-tighter md:text-4xl">
+            Frequently Asked Questions
+          </h2>
+          <p className="mt-4 max-w-[42rem] text-center text-muted-foreground">
+            Find answers to common questions about Smart Learnify AI.
+          </p>
+          <div className="mt-8 w-full max-w-3xl">
+            <FaqAccordion />
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="container py-20">
+        <div className="rounded-lg bg-primary p-8 md:p-10">
+          <div className="flex flex-col items-center justify-between gap-4 text-center md:text-left lg:flex-row">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tighter text-primary-foreground md:text-4xl">
+                Ready to Transform Your Learning?
+              </h2>
+              <p className="mt-4 max-w-[42rem] text-primary-foreground/90">
+                Join thousands of students already benefiting from personalized, AI-powered learning.
+              </p>
+            </div>
+            <Button size="lg" variant="secondary" asChild>
+              <Link href="/sign-up">Get Started Now</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
