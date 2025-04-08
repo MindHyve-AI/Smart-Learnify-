@@ -1,4 +1,6 @@
 import * as React from "react";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 
 export default function FaqAccordion() {
   const faqs = [
@@ -29,12 +31,42 @@ export default function FaqAccordion() {
     },
   ];
 
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const toggleFaq = (index: number) => {
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
   return (
     <div className="w-full space-y-4">
       {faqs.map((faq, index) => (
-        <div key={index} className="rounded-lg border p-4">
-          <h3 className="text-md font-medium">{faq.question}</h3>
-          <p className="mt-2 text-muted-foreground">{faq.answer}</p>
+        <div 
+          key={index} 
+          className={`rounded-lg border transition-all ${
+            openIndex === index ? "border-primary/50" : "border-border"
+          }`}
+        >
+          <button
+            onClick={() => toggleFaq(index)}
+            className="flex w-full items-center justify-between p-4 text-left font-medium"
+            aria-expanded={openIndex === index}
+          >
+            <span>{faq.question}</span>
+            <ChevronDown 
+              className={`h-5 w-5 text-muted-foreground transition-transform ${
+                openIndex === index ? "rotate-180 text-primary" : ""
+              }`} 
+            />
+          </button>
+          <div 
+            className={`overflow-hidden transition-all ${
+              openIndex === index 
+                ? "max-h-96 opacity-100" 
+                : "max-h-0 opacity-0"
+            }`}
+          >
+            <p className="p-4 pt-0 text-muted-foreground">{faq.answer}</p>
+          </div>
         </div>
       ))}
     </div>
