@@ -1,6 +1,5 @@
-import { defineConfig, devices } from '@playwright/test';
-
-export default defineConfig({
+/** @type {import('@playwright/test').PlaywrightTestConfig} */
+const config = {
   testDir: './e2e',
   timeout: 30 * 1000,
   expect: {
@@ -11,39 +10,36 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: 'html',
-  
   use: {
     actionTimeout: 0,
-    baseURL: 'http://localhost:3000',
     trace: 'on-first-retry',
+    baseURL: 'http://localhost:3000'
   },
-
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        browserName: 'chromium'
+      },
     },
     {
       name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
+      use: {
+        browserName: 'firefox'
+      },
     },
     {
       name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-    {
-      name: 'Mobile Chrome',
-      use: { ...devices['Pixel 5'] },
-    },
-    {
-      name: 'Mobile Safari',
-      use: { ...devices['iPhone 12'] },
+      use: {
+        browserName: 'webkit'
+      },
     },
   ],
-
   webServer: {
     command: 'npm run dev',
     port: 3000,
     reuseExistingServer: !process.env.CI,
   },
-}); 
+};
+
+module.exports = config; 

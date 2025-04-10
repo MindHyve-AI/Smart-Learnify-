@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import React from 'react';
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -10,16 +10,19 @@ import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: "Smart Learnify AI - Adaptive Learning Platform",
-  description: "AI-powered adaptive learning platform for personalized education",
+export const metadata = {
+  title: "Smart Learnify AI",
+  description: "AI-powered personalized learning experiences for everyone",
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}) {
   return (
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
