@@ -53,13 +53,6 @@ export default function Sidebar() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = React.useState(false);
 
-  // Only show sidebar on dashboard pages
-  const showSidebar = pathname?.includes('/dashboard');
-
-  if (!showSidebar) {
-    return null;
-  }
-
   return (
     <div
       className={cn(
