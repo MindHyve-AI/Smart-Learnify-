@@ -1,9 +1,10 @@
+"use client";
+
 import React from "react";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DashboardStats from "@/components/dashboard/DashboardStats";
 import AiFeedbackPanel from "@/components/dashboard/AiFeedbackPanel";
 import ProfileChart from "@/components/dashboard/ProfileChart";
