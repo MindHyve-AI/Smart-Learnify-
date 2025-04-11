@@ -1,90 +1,155 @@
 import React from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import TodaysFocus from '../components/dashboard/TodaysFocus';
+import GoalTracker from '../components/dashboard/GoalTracker';
+import PerformanceAnalytics from '../components/dashboard/PerformanceAnalytics';
+import StudyAssistant from '../components/dashboard/StudyAssistant';
+import { FaChartBar, FaClock, FaFire } from 'react-icons/fa';
 
 const Dashboard = () => {
-  // Mock data - in a real app this would come from an API
-  const courses = [
-    { id: 1, title: 'Introduction to Machine Learning', progress: 65, image: 'https://via.placeholder.com/150' },
-    { id: 2, title: 'Advanced JavaScript', progress: 32, image: 'https://via.placeholder.com/150' },
-    { id: 3, title: 'Data Structures and Algorithms', progress: 85, image: 'https://via.placeholder.com/150' },
-  ];
-  
-  const recommendations = [
-    { id: 4, title: 'Python for Data Science', image: 'https://via.placeholder.com/150' },
-    { id: 5, title: 'Web Development Fundamentals', image: 'https://via.placeholder.com/150' },
-  ];
+  const { currentUser } = useAuth();
 
   return (
-    <div className="container mx-auto py-8">
-      {/* Welcome Section */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
-        <h1 className="text-2xl font-bold">Welcome back, Student!</h1>
-        <p className="text-gray-600 mt-2">
-          Continue your learning journey. You're making excellent progress!
-        </p>
+    <div className="container">
+      <div className="dashboard-header">
+        <h1>Welcome, {currentUser?.firstName || 'User'}</h1>
+        <p className="dashboard-subtitle">Your AI learning assistant is ready</p>
       </div>
-      
-      {/* Progress Summary */}
-      <div className="bg-white rounded-lg shadow p-6 mb-8">
-        <h2 className="text-xl font-bold mb-4">Your Learning Progress</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-blue-50 p-4 rounded-lg">
-            <div className="text-blue-600 text-xl font-bold">3</div>
-            <div className="text-gray-600">Active Courses</div>
+
+      <div className="dashboard-stats">
+        <div className="stat-card">
+          <div className="stat-icon">
+            <div className="pulse-container">
+              <span className="pulse-dot"></span>
+            </div>
           </div>
-          <div className="bg-green-50 p-4 rounded-lg">
-            <div className="text-green-600 text-xl font-bold">12</div>
-            <div className="text-gray-600">Hours Spent Learning</div>
+          <div className="stat-content">
+            <h3 className="stat-value">75%</h3>
+            <p className="stat-label">Learning Progress</p>
           </div>
-          <div className="bg-purple-50 p-4 rounded-lg">
-            <div className="text-purple-600 text-xl font-bold">85%</div>
-            <div className="text-gray-600">Completion Rate</div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">
+            <div className="streak-icon"></div>
+          </div>
+          <div className="stat-content">
+            <h3 className="stat-value">7 Days</h3>
+            <p className="stat-label">Current Streak</p>
+          </div>
+        </div>
+
+        <div className="stat-card">
+          <div className="stat-icon">
+            <div className="points-icon"></div>
+          </div>
+          <div className="stat-content">
+            <h3 className="stat-value">1250</h3>
+            <p className="stat-label">Knowledge Points</p>
           </div>
         </div>
       </div>
-      
-      {/* My Courses */}
-      <div className="mb-8">
-        <h2 className="text-xl font-bold mb-4">My Courses</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {courses.map((course) => (
-            <div key={course.id} className="bg-white rounded-lg shadow overflow-hidden">
-              <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="font-bold mb-2">{course.title}</h3>
-                <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                  <div 
-                    className="bg-primary h-2.5 rounded-full" 
-                    style={{ width: `${course.progress}%` }}
-                  ></div>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-600">{course.progress}% complete</span>
-                  <button className="text-primary text-sm font-medium">Continue</button>
-                </div>
-              </div>
+
+      {/* New Today's Focus Section */}
+      <div className="dashboard-section">
+        <TodaysFocus />
+      </div>
+
+      {/* New Goal Tracker Section */}
+      <div className="dashboard-section">
+        <GoalTracker />
+      </div>
+
+      {/* New Performance Analytics Section */}
+      <div className="dashboard-section">
+        <PerformanceAnalytics />
+      </div>
+
+      {/* New Study Assistant Section */}
+      <div className="dashboard-section">
+        <StudyAssistant />
+      </div>
+
+      <div className="dashboard-section">
+        <h2>Recommended Courses</h2>
+        <div className="courses-grid">
+          <div className="course-card">
+            <div className="course-header">
+              <span className="course-badge">Recommended</span>
+              <span className="course-level">Beginner</span>
             </div>
-          ))}
+            <h3 className="course-title">Introduction to AI</h3>
+            <p className="course-description">
+              Learn the fundamentals of artificial intelligence and machine learning.
+            </p>
+            <div className="course-meta">
+              <span className="course-duration">8 modules • 4 hours</span>
+              <button className="btn btn-primary">Start Learning</button>
+            </div>
+          </div>
+
+          <div className="course-card">
+            <div className="course-header">
+              <span className="course-badge">Popular</span>
+              <span className="course-level">Intermediate</span>
+            </div>
+            <h3 className="course-title">Data Science Essentials</h3>
+            <p className="course-description">
+              Master the essential skills in data analysis and visualization.
+            </p>
+            <div className="course-meta">
+              <span className="course-duration">12 modules • 6 hours</span>
+              <button className="btn btn-primary">Start Learning</button>
+            </div>
+          </div>
+
+          <div className="course-card">
+            <div className="course-header">
+              <span className="course-badge">New</span>
+              <span className="course-level">Advanced</span>
+            </div>
+            <h3 className="course-title">Neural Networks Deep Dive</h3>
+            <p className="course-description">
+              Advanced concepts in neural networks and deep learning architectures.
+            </p>
+            <div className="course-meta">
+              <span className="course-duration">15 modules • 8 hours</span>
+              <button className="btn btn-primary">Start Learning</button>
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Recommendations */}
-      <div>
-        <h2 className="text-xl font-bold mb-4">Recommended for You</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {recommendations.map((course) => (
-            <div key={course.id} className="bg-white rounded-lg shadow overflow-hidden">
-              <img src={course.image} alt={course.title} className="w-full h-40 object-cover" />
-              <div className="p-4">
-                <h3 className="font-bold mb-2">{course.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  Based on your learning profile and interests.
-                </p>
-                <button className="text-white bg-primary px-4 py-2 rounded-md text-sm">
-                  Explore Course
-                </button>
+
+      <div className="dashboard-section">
+        <h2>Continue Learning</h2>
+        <div className="progress-cards">
+          <div className="progress-card">
+            <div className="progress-info">
+              <h3 className="progress-title">Machine Learning Basics</h3>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: '65%' }}></div>
+              </div>
+              <div className="progress-details">
+                <span className="progress-percent">65% complete</span>
+                <span className="progress-module">Module 6/10</span>
               </div>
             </div>
-          ))}
+            <button className="btn btn-secondary">Resume</button>
+          </div>
+
+          <div className="progress-card">
+            <div className="progress-info">
+              <h3 className="progress-title">Python for Data Analysis</h3>
+              <div className="progress-bar">
+                <div className="progress-fill" style={{ width: '30%' }}></div>
+              </div>
+              <div className="progress-details">
+                <span className="progress-percent">30% complete</span>
+                <span className="progress-module">Module 3/12</span>
+              </div>
+            </div>
+            <button className="btn btn-secondary">Resume</button>
+          </div>
         </div>
       </div>
     </div>
